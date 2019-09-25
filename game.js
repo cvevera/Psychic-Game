@@ -26,10 +26,10 @@ var alphabet = ["a",
 var wins = 0;
 var losses = 0;
 var left = 9;
-var guesses = 9;
+// var guesses = 9;
 var guessesSoFar = [];
 var psychicLetter;
-var guessedLetters = 0
+var guessedLetters = 0;
 
 
 var newLetter = function() {
@@ -42,31 +42,27 @@ var soFar = function() {
 };
 
 var guessesLeft = function() {
-    document.getElementById("left").innerHTML = "Guesses Left: " + left;
+
+    document.getElementById("left").innerHTML = "Guesses left: " + left;
 };
 
 var clearGuesses = function() {
-        guessesSoFar.length = 0;
+        guessesSoFar = [];
 };
 
 
 var newGame = function() {
-	guessedLetters = 0;
-    left = 9;
+	guessesSoFar = [];
+    left = 10;
     newLetter();
-    guessesLeft();
-    soFar();
     clearGuesses();
 };
 
-
-
 var guessCheck = function () {
     for (var i = 0; i > guessesSoFar.length; i++) {
-        if (this.userGuess = guessesSoFar[i]) {
-            alert("Please choose a new letter!")
+        if (userGuess = guessesSoFar[i]) {
+            console.log(true)
         }
-        return
     }
 }
 
@@ -74,34 +70,29 @@ var guessCheck = function () {
 document.onkeyup = function(event) {
     var userGuess = event.key;
     var userGuess = String.fromCharCode(event.keyCode).toLowerCase();
-    
-    // for (var i = 0; i < guessesSoFar.length; i++) {
-    // if (userGuess == guessesSoFar[i]) {
-    //     alert("Please choose a new letter");
-    // }
-    // else {
-        guessCheck(userGuess)
+
     if (event.keyCode >= 65 && event.keyCode <= 90){
-    
     left--;
     guessesSoFar.push(userGuess);
     soFar();
     guessesLeft();
 
         if (left > 0) {
-        if (userGuess == psychicLetter) {
-            wins++;
-            alert("You are a Psychic! Guess another letter to play again!")
-        	document.getElementById("wins").innerHTML = "Wins:" + wins;
-            newGame();
+            if (userGuess == psychicLetter) {
+                wins++;
+                newGame();
+                // alert("You are a Psychic! Guess another letter to play again!")
+        	    document.getElementById("wins").innerHTML = "Wins:" + wins;
+            
         }
-    } else if (left == 0) {
+        }   else if (left == 0) {
         losses++;
-        alert("You lose! Guess another letter to play again!")
-    	document.getElementById("losses").innerHTML = "Losses:" + losses;
         newGame();
+        // alert("You lose! Guess another letter to play again!")
+    	document.getElementById("losses").innerHTML = "Losses:" + losses;
+        
     }
     }
-    
 
+    
 };
