@@ -26,10 +26,9 @@ var alphabet = ["a",
 var wins = 0;
 var losses = 0;
 var left = 9;
-// var guesses = 9;
 var guessesSoFar = [];
 var psychicLetter;
-var guessedLetters = 0;
+
 
 
 var newLetter = function() {
@@ -46,32 +45,24 @@ var guessesLeft = function() {
     document.getElementById("left").innerHTML = "Guesses left: " + left;
 };
 
-var clearGuesses = function() {
-        guessesSoFar = [];
-};
-
-
 var newGame = function() {
 	guessesSoFar = [];
-    left = 10;
+    left = 9;
     newLetter();
-    clearGuesses();
+
 };
-
-var guessCheck = function () {
-    for (var i = 0; i > guessesSoFar.length; i++) {
-        if (userGuess = guessesSoFar[i]) {
-            console.log(true)
-        }
-    }
-}
-
 
 document.onkeyup = function(event) {
     var userGuess = event.key;
     var userGuess = String.fromCharCode(event.keyCode).toLowerCase();
 
     if (event.keyCode >= 65 && event.keyCode <= 90){
+        if (userGuess == guessesSoFar[0] || userGuess == guessesSoFar[1] || userGuess == guessesSoFar[2]|| userGuess == guessesSoFar[3]|| userGuess == guessesSoFar[4]|| userGuess == guessesSoFar[5]|| userGuess == guessesSoFar[6]|| userGuess == guessesSoFar[7]|| userGuess == guessesSoFar[8]) {
+            // I know I could use a loop here, but could not get it to work.
+            alert("Please pick a new letter!")
+            return
+        }
+        else {
     left--;
     guessesSoFar.push(userGuess);
     soFar();
@@ -80,19 +71,20 @@ document.onkeyup = function(event) {
         if (left > 0) {
             if (userGuess == psychicLetter) {
                 wins++;
+                alert("You are a Psychic! Guess another letter to play again!")
                 newGame();
-                // alert("You are a Psychic! Guess another letter to play again!")
         	    document.getElementById("wins").innerHTML = "Wins:" + wins;
             
         }
         }   else if (left == 0) {
         losses++;
+        alert("You lose! Guess another letter to play again!")
         newGame();
-        // alert("You lose! Guess another letter to play again!")
     	document.getElementById("losses").innerHTML = "Losses:" + losses;
         
     }
     }
 
+    }
     
 };
