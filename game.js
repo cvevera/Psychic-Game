@@ -30,12 +30,6 @@ var guessesSoFar = [];
 var psychicLetter;
 
 
-
-var newLetter = function() {
-    psychicLetter = alphabet[Math.floor(Math.random() * alphabet.length)];
-    console.log(psychicLetter)
-};
-
 var soFar = function() {
     document.getElementById("guesses").textContent = "Guesses so far: " + guessesSoFar.join(",");
 };
@@ -46,9 +40,10 @@ var guessesLeft = function() {
 };
 
 var newGame = function() {
-	guessesSoFar = [];
+	guessesSoFar.length = 0;
     left = 9;
-    newLetter();
+    psychicLetter = alphabet[Math.floor(Math.random() * alphabet.length)];
+    console.log(psychicLetter)
 
 };
 
@@ -58,8 +53,6 @@ document.onkeyup = function(event) {
 
     if (event.keyCode >= 65 && event.keyCode <= 90){
         if (userGuess == guessesSoFar[0] || userGuess == guessesSoFar[1] || userGuess == guessesSoFar[2]|| userGuess == guessesSoFar[3]|| userGuess == guessesSoFar[4]|| userGuess == guessesSoFar[5]|| userGuess == guessesSoFar[6]|| userGuess == guessesSoFar[7]|| userGuess == guessesSoFar[8]) {
-            // I know I could use a loop here, but could not get it to work.
-            alert("Please pick a new letter!")
             return
         }
         else {
@@ -70,15 +63,13 @@ document.onkeyup = function(event) {
 
         if (left > 0) {
             if (userGuess == psychicLetter) {
-                wins++;
-                alert("You are a Psychic! Guess another letter to play again!")
+                wins++;      
                 newGame();
         	    document.getElementById("wins").innerHTML = "Wins:" + wins;
             
         }
         }   else if (left == 0) {
         losses++;
-        alert("You lose! Guess another letter to play again!")
         newGame();
     	document.getElementById("losses").innerHTML = "Losses:" + losses;
         
